@@ -3,12 +3,43 @@
  */
 package shoppingcart;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        Scanner input = new Scanner(System.in);
+        ArrayList<Item> items = new ArrayList<Item>();
+        boolean exitLoop = false;
+        while (!exitLoop) {
+            System.out.print("Enter Name of Item: ");
+            String name = input.nextLine();
+            System.out.print("Enter price of item: ");
+            double price = input.nextDouble();
+            System.out.print("Enter quantity: ");
+            int quantity = input.nextInt();
+            input.nextLine();
+
+            Item item = new Item(name,price,quantity);
+            items.add(item);
+            double total =0.0;
+            System.out.println();
+            for(Item i : items){
+                System.out.println(i);
+                total=total+(i.getPrice()*i.getQuantity());
+            }
+            System.out.println("Total Price $" + Math.round(total*100.00)/100.00);
+            System.out.println();
+            System.out.println();
+            System.out.print("Continue shopping? (Y/N) ");
+           
+            if(input.nextLine().equalsIgnoreCase("N")){
+                exitLoop=true;
+            }
+            
+        }
+        input.close();
+
     }
 }
